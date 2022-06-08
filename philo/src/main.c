@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:09:57 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/06 18:53:06 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/08 17:42:03 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ int	philosophers(int argc, char **argv)
 	rule.time_eat = ft_atoi(argv[3]);
 	rule.time_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		rule.times_to_eat = ft_atoi(argv[5]);
+		rule.n_to_eat = ft_atoi(argv[5]);
 	else
-		rule.times_to_eat = -1;
-		rule.some_die = 0;
+		rule.n_to_eat = -1;
+	rule.some_die = 0;
 	rule.finished = 0;
+	rule.start_time = start_timer();
 	start(&rule);
 	return (0);
 }
