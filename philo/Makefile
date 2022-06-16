@@ -6,13 +6,13 @@
 #    By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 17:03:05 by mruizzo           #+#    #+#              #
-#    Updated: 2022/06/06 17:03:06 by mruizzo          ###   ########.fr        #
+#    Updated: 2022/06/16 19:53:50 by mruizzo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = 
+SRC = check.c main.c time.c utils.c game.c
 
 
 SRCS = $(addprefix src/, $(SRC))

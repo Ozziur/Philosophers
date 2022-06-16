@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:07:47 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/08 17:41:52 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/16 19:54:44 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@
 
 typedef struct s_rule
 {
-	int					num_philo;
-	unsigned long long	time_die;
-	unsigned long long	time_eat;
-	unsigned long long	time_sleep;
-	int					n_to_eat;
-	int					some_die;
-	int					finished;
-	unsigned long long	start_time;
+	int			num_philo;
+	uint64_t	time_die;
+	uint64_t	time_eat;
+	uint64_t	time_sleep;
+	int			n_to_eat;
+	int			some_die;
+	int			finished;
+	uint64_t	start_time;
 }	t_rule;
 
-int	check(int argc, char **argv);
-int	ft_atoi(const char *str);
+int			check(int argc, char **argv);
+int			ft_atoi(const char *str);
+uint64_t	start_timer(void);
+void		start(t_rule *rule);
 
 #endif

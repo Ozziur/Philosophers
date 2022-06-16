@@ -1,21 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/08 17:10:11 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/16 19:18:58 by mruizzo          ###   ########.fr       */
+/*   Created: 2022/06/16 18:52:43 by mruizzo           #+#    #+#             */
+/*   Updated: 2022/06/16 19:16:26 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-uint64_t	start_timer(void)
+static int	check_digits(char *str)
 {
-	struct timeval	tv;
+	int	i;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (i == 0 && str[i] == '+')
+			i++;
+		if (str[i] < 48 || str[i] > 57)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int	check(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (ft_atoi(argv[i]) > 250 && i == 0)
+			return (-1);
+		if (ft_atoi(argv[i]) < 0 || check_digits(argv[i]))
+			return (-1);
+		i++;
+	}
+	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:09:57 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/08 17:42:03 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/16 19:27:17 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	philosophers(int argc, char **argv)
+static void	philosophers(int argc, char **argv)
 {
 	t_rule	rule;
 
@@ -28,18 +28,22 @@ int	philosophers(int argc, char **argv)
 	rule.finished = 0;
 	rule.start_time = start_timer();
 	start(&rule);
-	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
+	{
+		printf("numero di argomenti insufficente");
 		return (-1);
+	}
 	else
 	{
 		if (check(argc, argv))
+		{
+			printf("errore negli argomenti");
 			return (-1);
-		if (philosophers(argc, argv))
-			return (-1);
+		}
+		philosophers(argc, argv);
 	}
 }
