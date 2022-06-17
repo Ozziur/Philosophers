@@ -6,16 +6,8 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:58:06 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/16 19:54:39 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/17 16:57:28 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	start(t_rule *rule)
-{
-	int	i;
-
-	i = 0;
-	
-}

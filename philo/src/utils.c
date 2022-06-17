@@ -6,13 +6,13 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:54:46 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/06 18:56:16 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/17 16:55:59 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	int	i;
 	int	sign;

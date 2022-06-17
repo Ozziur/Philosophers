@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 18:52:43 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/16 19:16:26 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/17 16:57:12 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ static int	check_digits(char *str)
 	return (0);
 }
 
+static int	ft_limits(long long nb)
+{
+	if (nb < 0 || nb > 2147483647)
+		return (1);
+	return (0);
+}
+
 int	check(int argc, char **argv)
 {
 	int	i;
@@ -35,9 +42,7 @@ int	check(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_atoi(argv[i]) > 250 && i == 0)
-			return (-1);
-		if (ft_atoi(argv[i]) < 0 || check_digits(argv[i]))
+		if (check_digits(argv[i]) || ft_limits(ft_atoi(argv[i])))
 			return (-1);
 		i++;
 	}

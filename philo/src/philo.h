@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:07:47 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/16 19:54:44 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/17 20:45:56 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,32 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef struct s_philo
+{
+	int				id;
+	int				n_eat;
+	int				end;
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
+	pthread_mutex_t	philo_time;
+}				t_philo;
+
 typedef struct s_rule
 {
-	int			num_philo;
-	uint64_t	time_die;
-	uint64_t	time_eat;
-	uint64_t	time_sleep;
-	int			n_to_eat;
-	int			some_die;
-	int			finished;
-	uint64_t	start_time;
+	int				num_philo;
+	uint64_t		time_die;
+	uint64_t		time_eat;
+	uint64_t		time_sleep;
+	int				n_to_eat;
+	int				some_die;
+	int				finished;
+	uint64_t		start_time;
+	t_philo			*philo;
+	pthread_mutex_t	*forks;
 }	t_rule;
 
 int			check(int argc, char **argv);
-int			ft_atoi(const char *str);
+long long	ft_atoi(const char *str);
 uint64_t	start_timer(void);
 void		start(t_rule *rule);
 

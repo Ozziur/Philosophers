@@ -6,44 +6,88 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:09:57 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/16 19:27:17 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/17 20:51:54 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	philosophers(int argc, char **argv)
+static int	init_mutex(t_rule *rule)
 {
-	t_rule	rule;
+	int	i;
 
-	rule.num_philo = ft_atoi(argv[1]);
-	rule.time_die = ft_atoi(argv[2]);
-	rule.time_eat = ft_atoi(argv[3]);
-	rule.time_sleep = ft_atoi(argv[4]);
+	i = 0;
+	// pthread_mutex_init(&rules->lock, NULL);
+	// pthread_mutex_init(&rules->die_mutex, NULL);
+	// pthread_mutex_init(&rules->must_eat_mutex, NULL);
+	rule->forks = (pthread_mutex_t *) malloc
+		(sizeof(pthread_mutex_t) * rule->num_philo);
+	if (rule->forks == NULL)
+		return (-1);
+	while (i < rule->num_philo)
+		pthread_mutex_init(&rule->forks[i++], NULL);
+	return (0);
+}
+
+static int	init_rules(int argc, char **argv, t_rule *rule)
+{
+	rule->num_philo = ft_atoi(argv[1]);
+	rule->time_die = ft_atoi(argv[2]);
+	rule->time_eat = ft_atoi(argv[3]);
+	rule->time_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		rule.n_to_eat = ft_atoi(argv[5]);
+		rule->n_to_eat = ft_atoi(argv[5]);
 	else
-		rule.n_to_eat = -1;
-	rule.some_die = 0;
-	rule.finished = 0;
-	rule.start_time = start_timer();
-	start(&rule);
+		rule->n_to_eat = -1;
+	rule->some_die = 0;
+	rule->finished = 0;
+	rule->start_time = start_timer();
+	rule->philo = (t_philo *) malloc (sizeof(t_philo) * rule->num_philo);
+	if (rule->philo == NULL)
+		return (-1);
+	if (init_mutex(&rule))
+		return (-1);
+	return (0);
+}
+
+void	init_philo(t_rule *rule)
+{
+	int	i;
+
+	i = 0;
+	while (i < rule->num_philo)
+	{
+		rule->philo[i].id = i + 1;
+		rule->philo[i].n_eat = 0;
+		rule->philo[i].end = 0;
+		//rule->philo[i].rules = rule;
+		pthread_mutex_init(&rule->philo[i].philo_time, NULL);
+		rule->philo->left = &rule->forks[i];
+		if (i == rule->num_philo - 1)
+			rule->philo[i].right = &rule->forks[0];
+		else
+			rule->philo[i].right = &rule->forks[i + 1];
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
 {
+	t_rule	rule;
+
 	if (argc < 5 || argc > 6)
 	{
-		printf("numero di argomenti insufficente");
+		printf("numero di argomenti insufficente\n");
 		return (-1);
 	}
 	else
 	{
-		if (check(argc, argv))
+		if (check(argc, argv) || init_rules(argc, argv, &rule))
 		{
-			printf("errore negli argomenti");
+			printf("errore negli argomenti\n");
 			return (-1);
 		}
-		philosophers(argc, argv);
+		init_philo(&rule);
+		start(&rule);
 	}
 }
