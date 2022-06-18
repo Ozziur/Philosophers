@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:09:57 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/17 20:51:54 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/18 16:36:31 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_philo(t_rule *rule)
 		rule->philo[i].id = i + 1;
 		rule->philo[i].n_eat = 0;
 		rule->philo[i].end = 0;
-		//rule->philo[i].rules = rule;
+		rule->philo[i].rule = rule;
 		pthread_mutex_init(&rule->philo[i].philo_time, NULL);
 		rule->philo->left = &rule->forks[i];
 		if (i == rule->num_philo - 1)

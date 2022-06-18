@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:07:47 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/17 20:45:56 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/18 16:37:34 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ typedef struct s_philo
 	int				id;
 	int				n_eat;
 	int				end;
+	pthread_t		thread;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	pthread_mutex_t	philo_time;
+	t_rule			*rule;
 }				t_philo;
 
 typedef struct s_rule
