@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:09:57 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/20 19:46:02 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/20 20:19:15 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	init_mutex(t_rule *rule)
 	int	i;
 
 	i = 0;
-	// pthread_mutex_init(&rule->lock, NULL);
-	// pthread_mutex_init(&rule->die_mutex, NULL);
-	pthread_mutex_init(&rule->n_to_eat_mutex, NULL);
+	pthread_mutex_init(&rule->lock, NULL);
+	pthread_mutex_init(&rule->die_mutex, NULL);
+	pthread_mutex_init(&rule->eat_mutex, NULL);
 	rule->forks = (pthread_mutex_t *) malloc
 		(sizeof(pthread_mutex_t) * rule->num_philo);
 	if (rule->forks == NULL)

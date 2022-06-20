@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:58:06 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/20 19:45:39 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/20 20:00:48 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void	*dinner(void *philo)
 		ph->n_eat++;
 		if (ph->n_eat == ph->rule->n_to_eat)
 		{
-			pthread_mutex_lock(&ph->rule->n_to_eat_mutex);
+			pthread_mutex_lock(&ph->rule->eat_mutex);
 			ph->end = 1;
-			pthread_mutex_unlock(&ph->rule->n_to_eat_mutex);
+			pthread_mutex_unlock(&ph->rule->eat_mutex);
 		}
 		routine(ph);
 	}

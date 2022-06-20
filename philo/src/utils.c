@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:54:46 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/17 16:55:59 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/20 20:30:20 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,15 @@ long long	ft_atoi(const char *str)
 		i++;
 	}
 	return (ret * sign);
+}
+
+void	philo_msg(t_philo *ph, int id, char *str)
+{
+	if (check_mutex(0, ph))
+	{
+		pthread_mutex_lock(&ph->rule->lock);
+		printf("%ull", start_timer() - ph->rule->start_time);
+		printf("%d %s\n", id, str);
+		pthread_mutex_unlock(&ph->rule->lock);
+	}	
 }
