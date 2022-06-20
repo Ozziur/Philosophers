@@ -6,14 +6,36 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:58:06 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/18 16:30:18 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/20 19:45:39 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	dinner(void);
 void		monitor(void *philo);
+
+static void	*dinner(void *philo)
+{
+	t_philo	*ph;
+
+	ph = philo;
+	starving(ph);
+	while (check_mutex(0, ph))
+	{
+		take_forks(ph);
+		philo_msg(ph, ph->id, "is eating");
+		starving(ph);
+		ph->n_eat++;
+		if (ph->n_eat == ph->rule->n_to_eat)
+		{
+			pthread_mutex_lock(&ph->rule->n_to_eat_mutex);
+			ph->end = 1;
+			pthread_mutex_unlock(&ph->rule->n_to_eat_mutex);
+		}
+		routine(ph);
+	}
+	return (NULL);
+}
 
 void	start(t_rule *rule)
 {

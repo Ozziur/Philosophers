@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:07:47 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/18 16:37:34 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/20 17:31:44 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,15 @@ typedef struct s_rule
 	uint64_t		start_time;
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	n_to_eat_mutex;
 }	t_rule;
 
 int			check(int argc, char **argv);
 long long	ft_atoi(const char *str);
 uint64_t	start_timer(void);
 void		start(t_rule *rule);
+void		starving(t_philo *ph);
+int			check_mutex(int flag, t_philo *ph);
+int			take_forks(t_philo	*ph);
 
 #endif

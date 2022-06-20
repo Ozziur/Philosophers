@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 18:52:43 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/17 16:57:12 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/20 17:15:34 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ int	check(int argc, char **argv)
 			return (-1);
 		i++;
 	}
+	if (ft_atoi(argv[1] == 0 || ft_atoi(argv[1]) == 1))
+		return (-1);
 	return (0);
 }
