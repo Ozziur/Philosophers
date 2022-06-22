@@ -6,13 +6,40 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:58:06 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/20 20:00:48 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/22 19:54:03 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void		monitor(void *philo);
+void	monitor(t_rule *rule)
+{
+	t_philo		*ph;
+	int			i;
+	uint64_t	tmp;
+
+	ph = rule->philo;
+	while (1)
+	{
+		i = 0;
+		while (i < rule->num_philo)
+		{
+			pthread_mutex_lock(&ph[i].philo_time);
+			tmp = start_timer() - ph->rule->start_time - ph->strv;
+			pthread_mutex_unlock(&ph[i].philo_time);
+			if (tmp > ph->rule->time_die)
+			{
+				philo_msg(&ph[i], ph[i].id, "died");
+				pthread_mutex_lock(&rule->lock);
+				rule->some_die = 0;
+				pthread_mutex_unlock(&rule->lock);
+				pthread_mutex_unlock(&rule->die_mutex);
+				return ;
+			}
+		i++;
+		}
+	}
+}
 
 static void	*dinner(void *philo)
 {
@@ -21,7 +48,7 @@ static void	*dinner(void *philo)
 	ph = philo;
 	starving(ph);
 	while (check_mutex(0, ph))
-	{
+	{	
 		take_forks(ph);
 		philo_msg(ph, ph->id, "is eating");
 		starving(ph);
@@ -45,9 +72,12 @@ void	start(t_rule *rule)
 	rule->start_time = start_timer();
 	while (++i < rule->num_philo)
 		pthread_create(&rule->philo[i].thread, NULL, dinner, &rule->philo[i]);
-	monitor(rule->philo);
 	i = 0;
+	monitor(rule);
 	while (i < rule->num_philo)
-		pthread_join(rule->philo[i++].thread, NULL);
-	clean();
+	{
+		pthread_join(rule->philo[i].thread, NULL);
+		i++;
+	}
+//	clean();
 }

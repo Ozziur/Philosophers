@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:09:57 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/20 20:19:15 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/22 19:08:47 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static int	init_rules(int argc, char **argv, t_rule *rule)
 		rule->n_to_eat = ft_atoi(argv[5]);
 	else
 		rule->n_to_eat = -1;
-	rule->some_die = 0;
-	rule->finished = 0;
+	rule->some_die = 1;
+	rule->finished = 1;
 	rule->start_time = start_timer();
 	rule->philo = (t_philo *) malloc (sizeof(t_philo) * rule->num_philo);
 	if (rule->philo == NULL)
 		return (-1);
-	if (init_mutex(&rule))
+	if (init_mutex(rule))
 		return (-1);
 	return (0);
 }
@@ -62,11 +62,10 @@ void	init_philo(t_rule *rule)
 		rule->philo[i].end = 0;
 		rule->philo[i].rule = rule;
 		pthread_mutex_init(&rule->philo[i].philo_time, NULL);
-		rule->philo->left = &rule->forks[i];
+		rule->philo[i].left = &rule->forks[i];
+		rule->philo[i].right = &rule->forks[i + 1];
 		if (i == rule->num_philo - 1)
 			rule->philo[i].right = &rule->forks[0];
-		else
-			rule->philo[i].right = &rule->forks[i + 1];
 		i++;
 	}
 }

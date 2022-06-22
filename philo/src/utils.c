@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:54:46 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/20 20:30:20 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/22 19:23:07 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,23 @@ long long	ft_atoi(const char *str)
 	return (ret * sign);
 }
 
+void	my_sleep(uint64_t time)
+{
+	uint64_t	tmp;
+
+	tmp = start_timer();
+	usleep(time * 1000 - 20000);
+	while (start_timer() < tmp + time)
+		continue ;
+}
+
 void	philo_msg(t_philo *ph, int id, char *str)
 {
 	if (check_mutex(0, ph))
 	{
 		pthread_mutex_lock(&ph->rule->lock);
-		printf("%ull", start_timer() - ph->rule->start_time);
-		printf("%d %s\n", id, str);
+		printf("%llu", start_timer() - ph->rule->start_time);
+		printf(" %d %s\n", id, str);
 		pthread_mutex_unlock(&ph->rule->lock);
 	}	
 }

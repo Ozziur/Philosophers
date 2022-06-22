@@ -6,13 +6,13 @@
 #    By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 17:03:05 by mruizzo           #+#    #+#              #
-#    Updated: 2022/06/16 19:53:50 by mruizzo          ###   ########.fr        #
+#    Updated: 2022/06/22 17:03:26 by mruizzo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = check.c main.c time.c utils.c game.c
+SRC = check.c main.c time.c utils.c game.c philo_utility.c
 
 
 SRCS = $(addprefix src/, $(SRC))
@@ -21,7 +21,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(SRCS) -pthread -o $(NAME)
