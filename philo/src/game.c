@@ -6,11 +6,31 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:58:06 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/22 19:54:03 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/23 20:15:39 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	clean(t_rule *rule)
+{
+	int		i;
+	t_philo	*philo;
+
+	philo = rule->philo;
+	i = 0;
+	while (i < rule->num_philo)
+	{
+		pthread_mutex_destroy(&rule->forks[i]);
+		pthread_mutex_destroy(&rule->philo[i].philo_time);
+		i++;
+	}
+	pthread_mutex_destroy(&rule->lock);
+	pthread_mutex_destroy(&rule->die_mutex);
+	pthread_mutex_destroy(&rule->eat_mutex);
+	free(philo);
+	free(rule->forks);
+}
 
 void	monitor(t_rule *rule)
 {
@@ -19,6 +39,7 @@ void	monitor(t_rule *rule)
 	uint64_t	tmp;
 
 	ph = rule->philo;
+	usleep(50);
 	while (1)
 	{
 		i = 0;
@@ -29,11 +50,12 @@ void	monitor(t_rule *rule)
 			pthread_mutex_unlock(&ph[i].philo_time);
 			if (tmp > ph->rule->time_die)
 			{
-				philo_msg(&ph[i], ph[i].id, "died");
 				pthread_mutex_lock(&rule->lock);
 				rule->some_die = 0;
 				pthread_mutex_unlock(&rule->lock);
 				pthread_mutex_unlock(&rule->die_mutex);
+				usleep(500);
+					philo_msg(&ph[i], ph[i].id, "died");
 				return ;
 			}
 		i++;
@@ -50,7 +72,8 @@ static void	*dinner(void *philo)
 	while (check_mutex(0, ph))
 	{	
 		take_forks(ph);
-		philo_msg(ph, ph->id, "is eating");
+		if (check_mutex(0, ph))
+			philo_msg(ph, ph->id, "is eating");
 		starving(ph);
 		ph->n_eat++;
 		if (ph->n_eat == ph->rule->n_to_eat)
@@ -79,5 +102,5 @@ void	start(t_rule *rule)
 		pthread_join(rule->philo[i].thread, NULL);
 		i++;
 	}
-//	clean();
+	clean(rule);
 }
