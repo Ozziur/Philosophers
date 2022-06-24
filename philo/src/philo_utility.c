@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:18:08 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/23 20:26:02 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:08:10 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	take_forks(t_philo	*ph)
 		pthread_mutex_lock(ph->left);
 		if (check_mutex(0, ph))
 			philo_msg(ph, ph->id, "has taken a fork");
+		if (ph->rule->num_philo == 1)
+			return (1);
 		pthread_mutex_lock(ph->right);
 		if (check_mutex(0, ph))
 			philo_msg(ph, ph->id, "has taken a fork");

@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:07:47 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/22 18:19:53 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:13:38 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_philo
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	pthread_mutex_t	philo_time;
-//	pthread_mutex_t	ph_lock;
+
 }				t_philo;
 
 typedef struct s_rule
@@ -60,5 +60,6 @@ int			take_forks(t_philo	*ph);
 void		routine(t_philo *ph);
 void		my_sleep(uint64_t time);
 void		philo_msg(t_philo *ph, int id, char *str);
+void		monitor(t_rule *rule);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:58:06 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/23 20:15:39 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/24 16:14:11 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,6 @@ static void	clean(t_rule *rule)
 	free(rule->forks);
 }
 
-void	monitor(t_rule *rule)
-{
-	t_philo		*ph;
-	int			i;
-	uint64_t	tmp;
-
-	ph = rule->philo;
-	usleep(50);
-	while (1)
-	{
-		i = 0;
-		while (i < rule->num_philo)
-		{
-			pthread_mutex_lock(&ph[i].philo_time);
-			tmp = start_timer() - ph->rule->start_time - ph->strv;
-			pthread_mutex_unlock(&ph[i].philo_time);
-			if (tmp > ph->rule->time_die)
-			{
-				pthread_mutex_lock(&rule->lock);
-				rule->some_die = 0;
-				pthread_mutex_unlock(&rule->lock);
-				pthread_mutex_unlock(&rule->die_mutex);
-				usleep(500);
-					philo_msg(&ph[i], ph[i].id, "died");
-				return ;
-			}
-		i++;
-		}
-	}
-}
-
 static void	*dinner(void *philo)
 {
 	t_philo	*ph;
@@ -71,7 +40,8 @@ static void	*dinner(void *philo)
 	starving(ph);
 	while (check_mutex(0, ph))
 	{	
-		take_forks(ph);
+		if (take_forks(ph))
+			return (NULL);
 		if (check_mutex(0, ph))
 			philo_msg(ph, ph->id, "is eating");
 		starving(ph);
