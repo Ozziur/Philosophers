@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 16:13:56 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/24 16:53:43 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/29 14:46:30 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	second_monitor(t_rule *rule, int *check)
 	if (*check >= rule->num_philo)
 	{
 		kill(rule);
+		rule->finished = 0;
 		return (1);
 	}
 	else
@@ -44,7 +45,7 @@ static int	real_monitor(t_rule *rule, t_philo *ph, int i, uint64_t tmp)
 		if (tmp > ph->rule->time_die)
 		{
 			kill(rule);
-			usleep(500);
+			usleep(400);
 			philo_msg(&ph[i], ph[i].id, "died");
 			return (1);
 		}

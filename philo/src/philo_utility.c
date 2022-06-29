@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:18:08 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/24 16:08:10 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/29 12:41:03 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	starving(t_philo *ph)
 
 void	routine(t_philo *ph)
 {
-	if (ph->rule->some_die == 1)
+	if (check_mutex(0, ph))
 		my_sleep(ph->rule->time_eat);
 	pthread_mutex_unlock(ph->right);
 	pthread_mutex_unlock(ph->left);
 	if (check_mutex(0, ph))
 		philo_msg(ph, ph->id, "is sleeping");
-	if (ph->rule->some_die == 1)
+	if (check_mutex(0, ph))
 		my_sleep(ph->rule->time_sleep);
 	if (check_mutex(0, ph))
 		philo_msg(ph, ph->id, "is thinking");

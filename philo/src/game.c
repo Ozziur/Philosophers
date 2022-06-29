@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:58:06 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/24 16:14:11 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/06/29 14:57:02 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ static void	*dinner(void *philo)
 		if (take_forks(ph))
 			return (NULL);
 		if (check_mutex(0, ph))
+		{
+			usleep(10);
 			philo_msg(ph, ph->id, "is eating");
+		}
 		starving(ph);
 		ph->n_eat++;
 		if (ph->n_eat == ph->rule->n_to_eat)
