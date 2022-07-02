@@ -5,15 +5,14 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/06/06 17:03:05 by mruizzo           #+#    #+#              #
-#    Updated: 2022/06/29 15:16:15 by mruizzo          ###   ########.fr        #
+#    Created: 2022/06/30 16:40:45 by mruizzo           #+#    #+#              #
+#    Updated: 2022/07/02 17:33:45 by mruizzo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_bonus
 
-SRC = check.c main.c time.c utils.c game.c philo_utility.c monitor.c
-
+SRC = main.c check.c game.c monitor.c time.c utils.c
 
 SRCS = $(addprefix src/, $(SRC))
 
@@ -21,7 +20,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
+FLAGS = -Wall -Werror -Wextra
 
 $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(SRCS) -pthread -o $(NAME)

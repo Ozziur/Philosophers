@@ -6,27 +6,21 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:09:57 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/30 17:37:24 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/02 17:47:10 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-static int	init_mutex(t_rule *rule)
+static sem_t	*sem_in(const char *name, unsigned int value)
 {
-	int	i;
+	sem_t	*sem;
 
-	i = 0;
-	pthread_mutex_init(&rule->lock, NULL);
-	pthread_mutex_init(&rule->die_mutex, NULL);
-	pthread_mutex_init(&rule->eat_mutex, NULL);
-	rule->forks = (pthread_mutex_t *) malloc
-		(sizeof(pthread_mutex_t) * rule->num_philo);
-	if (rule->forks == NULL)
-		return (-1);
-	while (i < rule->num_philo)
-		pthread_mutex_init(&rule->forks[i++], NULL);
-	return (0);
+	sem = sem_open(name, O_CREAT | O_EXCL, 0644, value);
+	if (sem != SEM_FAILED)
+		return (sem);
+	sem_unlink(name);
+	return (sem_open(name, O_CREAT, S_IRUSR | S_IWUSR, value));
 }
 
 static int	init_rules(int argc, char **argv, t_rule *rule)
@@ -39,17 +33,17 @@ static int	init_rules(int argc, char **argv, t_rule *rule)
 		rule->n_to_eat = ft_atoi(argv[5]);
 	else
 		rule->n_to_eat = -1;
-	rule->some_die = 1;
-	rule->finished = 1;
+	rule->msg = sem_in("/message", 1);
+	rule->forks = sem_in("/forks", rule->num_philo);
+	rule->finish = sem_in("/must_eat", 0);
+	rule->dead = sem_in("/dead", 0);
 	rule->philo = (t_philo *) malloc (sizeof(t_philo) * rule->num_philo);
 	if (rule->philo == NULL)
-		return (-1);
-	if (init_mutex(rule))
 		return (-1);
 	return (0);
 }
 
-void	init_philo(t_rule *rule)
+static void	init_philo(t_rule *rule)
 {
 	int	i;
 
@@ -58,13 +52,7 @@ void	init_philo(t_rule *rule)
 	{
 		rule->philo[i].id = i + 1;
 		rule->philo[i].n_eat = 0;
-		rule->philo[i].end = 0;
 		rule->philo[i].rule = rule;
-		pthread_mutex_init(&rule->philo[i].philo_time, NULL);
-		rule->philo[i].left = &rule->forks[i];
-		rule->philo[i].right = &rule->forks[i + 1];
-		if (i == rule->num_philo - 1)
-			rule->philo[i].right = &rule->forks[0];
 		i++;
 	}
 }
