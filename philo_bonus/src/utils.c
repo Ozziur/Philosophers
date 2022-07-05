@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:54:46 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/07/02 18:44:57 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/05 17:53:33 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,14 @@ long long	ft_atoi(const char *str)
 	return (ret * sign);
 }
 
-void	my_sleep(uint64_t time, t_rule *rule)
+void	my_sleep(uint64_t time)
 {
 	uint64_t	tmp;
 
 	tmp = start_timer();
-	while (time > start_timer() - tmp)
-	{
-		usleep(50);
-	}
-	if (rule->start_time == 1)
-		return ;
+	usleep(time * 1000 - 20000);
+	while (start_timer() < tmp + time)
+		continue ;
 }
 
 void	philo_msg(t_philo *ph, int id, char *str)

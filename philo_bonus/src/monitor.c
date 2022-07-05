@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 16:13:56 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/07/02 20:14:27 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/05 17:23:55 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int	finish(t_philo *ph)
 		sem_wait(ph->rule->msg);
 		printf("%llu %d died\n", start_timer() - ph->rule->start_time, ph->id);
 		sem_post(ph->rule->dead);
-		//aggiungere ammazza processi
 		return (1);
 	}
 	if (ph->n_eat == ph->rule->n_to_eat)

@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:09:57 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/07/02 17:47:10 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/05 17:40:50 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static sem_t	*sem_in(const char *name, unsigned int value)
 	if (sem != SEM_FAILED)
 		return (sem);
 	sem_unlink(name);
-	return (sem_open(name, O_CREAT, S_IRUSR | S_IWUSR, value));
+	return (sem_open(name, O_CREAT | O_EXCL, 0644, value));
 }
 
 static int	init_rules(int argc, char **argv, t_rule *rule)

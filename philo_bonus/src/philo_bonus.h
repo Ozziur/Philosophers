@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 17:07:47 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/07/02 18:35:01 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:26:53 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ uint64_t	start_timer(void);
 void		start(t_rule *rule);
 int			take_forks(t_philo	*ph);
 void		routine(t_philo *ph);
-void		my_sleep(uint64_t time, t_rule *rule);
+void		my_sleep(uint64_t time);
 void		philo_msg(t_philo *ph, int id, char *str);
 void		*must_eat(void *rules);
 void		*monitor(void *philo);
