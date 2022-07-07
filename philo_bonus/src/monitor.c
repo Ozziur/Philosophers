@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 16:13:56 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/07/05 17:23:55 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/06 18:39:18 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	*must_eat(void *rule)
 
 static int	finish(t_philo *ph)
 {
-	int	tmp;
+	uint64_t	tmp;
 
-	tmp = start_timer() - ph->rule->start_time;
-	if (tmp - ph->strv > ph->rule->time_die)
+	tmp = (start_timer() - ph->rule->start_time - ph->strv);
+	if ((int)tmp > (int)ph->rule->time_die)
 	{
 		sem_wait(ph->rule->msg);
 		printf("%llu %d died\n", start_timer() - ph->rule->start_time, ph->id);

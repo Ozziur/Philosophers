@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:18:08 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/06/29 12:41:03 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/07 18:31:32 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,13 @@ int	take_forks(t_philo	*ph)
 
 void	starving(t_philo *ph)
 {
-	pthread_mutex_lock(&ph->philo_time);
+	pthread_mutex_lock(&ph->rule->philo_time);
 	ph->strv = start_timer() - ph->rule->start_time;
-	pthread_mutex_unlock(&ph->philo_time);
+	pthread_mutex_unlock(&ph->rule->philo_time);
 }
 
 void	routine(t_philo *ph)
 {
-	if (check_mutex(0, ph))
-		my_sleep(ph->rule->time_eat);
 	pthread_mutex_unlock(ph->right);
 	pthread_mutex_unlock(ph->left);
 	if (check_mutex(0, ph))
