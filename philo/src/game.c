@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:58:06 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/07/07 18:36:18 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/10 17:26:05 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	*dinner(void *philo)
 	t_philo	*ph;
 
 	ph = philo;
+	if (ph->id % 2 == 0)
+		my_sleep(20);
 	while (check_mutex(0, ph))
 	{	
 		if (take_forks(ph))
