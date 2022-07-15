@@ -6,7 +6,7 @@
 /*   By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:18:08 by mruizzo           #+#    #+#             */
-/*   Updated: 2022/07/07 18:31:32 by mruizzo          ###   ########.fr       */
+/*   Updated: 2022/07/15 17:55:17 by mruizzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,14 @@
 
 int	take_forks(t_philo	*ph)
 {
-	if (ph->id == ph->rule->num_philo)
-	{
-		pthread_mutex_lock(ph->left);
-		if (check_mutex(0, ph))
-			philo_msg(ph, ph->id, "has taken a fork");
-		if (ph->rule->num_philo == 1)
-			return (1);
-		pthread_mutex_lock(ph->right);
-		if (check_mutex(0, ph))
-			philo_msg(ph, ph->id, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(ph->right);
-		if (check_mutex(0, ph))
-			philo_msg(ph, ph->id, "has taken a fork");
-		pthread_mutex_lock(ph->left);
-		if (check_mutex(0, ph))
-			philo_msg(ph, ph->id, "has taken a fork");
-	}
+	pthread_mutex_lock(ph->left);
+	if (check_mutex(0, ph))
+		philo_msg(ph, ph->id, "has taken a fork");
+	if (ph->rule->num_philo == 1)
+		return (1);
+	pthread_mutex_lock(ph->right);
+	if (check_mutex(0, ph))
+		philo_msg(ph, ph->id, "has taken a fork");
 	return (0);
 }
 
