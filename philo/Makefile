@@ -6,7 +6,7 @@
 #    By: mruizzo <mruizzo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/06 17:03:05 by mruizzo           #+#    #+#              #
-#    Updated: 2022/07/15 18:19:22 by mruizzo          ###   ########.fr        #
+#    Updated: 2022/07/19 11:06:12 by mruizzo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
+FLAGS = -Wall -Werror -Wextra #
+
+-fsanitize=address -g3
 
 $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(SRCS) -pthread -o $(NAME)
