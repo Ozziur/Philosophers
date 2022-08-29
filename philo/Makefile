@@ -21,9 +21,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra #
-
--fsanitize=address -g3
+FLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
 
 $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(SRCS) -pthread -o $(NAME)
